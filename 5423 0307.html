@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    li {
+      margin-bottom: 10px;
+    }
+    span {
+      margin-right: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <input type="text" id="todoInput" placeholder="Enter a new task">
+  <button onclick="addTodo()">Add</button>
+  <ul id="todoList"></ul>
+
+  <script>
+    let todos = [];
+
+    function addTodo() {
+      const todoInput = document.querySelector('#todoInput');
+      const todoList = document.querySelector('#todoList');
+      const todoText = todoInput.value;
+      todos.push(todoText);
+      const todoItem = document.createElement('li');
+      const todoSpan = document.createElement('span');
+      todoSpan.innerText = todoText;
+      
+      const replaceButton = document.createElement('button');
+      replaceButton.innerText = 'Replace';
+
+      replaceButton.onclick = function() {
+        const newTodoText = prompt('Enter new task:');
+        todoSpan.innerText = newTodoText;
+        const index = todos.indexOf(todoText);
+        todos.splice(index, 1, newTodoText);
+      }
+
+      const deleteButton = document.createElement('button');
+      deleteButton.innerText = 'Delete';
+      
+      deleteButton.onclick = function() {
+        todoItem.remove();
+        const index = todos.indexOf(todoText);
+        todos.splice(index, 1);
+      }
+      
+      todoItem.appendChild(todoSpan);
+      todoItem.appendChild(replaceButton);
+      todoItem.appendChild(deleteButton);
+      todoList.appendChild(todoItem);
+      todoInput.value = '';
+    }
+  </script>
+</body>
+</html>
